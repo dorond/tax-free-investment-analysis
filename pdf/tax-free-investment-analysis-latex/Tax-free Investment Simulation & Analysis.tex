@@ -1,0 +1,1483 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Tax-free Investment Simulation \& Analysis}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{overview}{%
+\section{Overview}\label{overview}}
+
+    In a few months time, I'm going to become a dad for the first time and
+with that, all the usual concerns about long-term financial security
+have come to the forefront of my mind. For some time I've heard about
+the option of tax-free investments but thus far have been slow to look
+into them and the savings potential they offer my family.
+
+This project aims to use the power of data science to first: generate
+millions of combinations of investments that abide by the tax-free
+savings rules and then: analyse those investments to understand how one
+can optimise them for specific savings goals such as a child's future
+education or wedding, our retirement or rainy day planning.
+
+There are numerous online calculators where one can play around with
+individual lump sum amounts, monthly contributions and risk tolerances,
+however using these tools is cumbersome because one can't play around
+with every possible combination so you don't know if you are missing out
+on the ``best'' combination that would maximise your investment. Also
+it's useful to have a wider appreciation for how these parameters affect
+the investment generally, which these tools don't offer.
+
+Here then, I'd like to first provide general understanding about how
+these parameters affect your investment and then bring it all together
+and show you options for savings specific goal amounts, i.e.~R250K,
+R500K, R1M, R2M, R5M and R10M. I chose these amounts because they
+represent goals that range from medium-term expenses such as paying for
+a wedding all the way to retirement and even financial freedom.
+
+We'll look at what's possible and what's not possible and at the end of
+the analysis I'll provide a free pdf report (no email signup) that you
+can keep with you when you are comparing options from various financial
+institutions as knowing what's possible will make comparisons more
+precise.
+
+    \hypertarget{what-are-tax-free-investments}{%
+\section{What are Tax-free
+Investments?}\label{what-are-tax-free-investments}}
+
+    From 1 March 2015, it become possible to invest in a class of products
+whose returns are not subject to any form of income tax, divident tax or
+capital gains tax. We refer to these as Tax-free investment products.
+They can be packaged together and provided by licensed banks, long-term
+insurers, mutual and co-operative banks and the government and their
+primary objective is to encourage and incentivise South Africa's to
+save.
+
+There are a rules surrounding a tax-free investment. These are as
+follows: - As of 1 March 2017, you can contribute a maximum of R33,000
+per tax year. Any portion of unused annual limit is forfeited in that
+year. Each year resets and only allows R33,000 contribution. - There is
+a life time limit of R500,000 per person. - If a person exceeds the
+limits, there is a penalty of 40\% of the excess amount. Example:
+Taxpayer X invests R35,000 -- exceeded the annual limit by R2,000, 40\%
+of R2,000 = R800 must be paid to SARS. This penalty is added to the
+normal tax payable on assessment. - A person can have more than one tax
+free investment, however, you are limited to the annual limits per tax
+year. This means you can invest, for example, R11,000 in Old Mutual,
+R11,000 in Investec and R11,000 in Absa.\\
+- Parents can invest on behalf of their minor child. The minor child
+will use his/her own annual or lifetime limits. This means a family of
+four could each have an account allowing a total of R33,000 x 4 =
+R132,000 to be invested in a given year. - When returns on investment
+are added to the capital contributed, the balance may exceed both the
+annual and/or lifetime limit. The re-investment of these returns within
+the account does not affect the annual or lifetime limit. Example: If
+you invest R33,000 for the year and receive a return of investment of
+R5,000, which you have chosen to re-invest, the total amount in the
+account will be R38,000. The following year, you will still be able to
+invest your full R33,000 for year. - However, where a person withdraws
+the returns and reinvests the same amount, that amount is regarded as a
+new contribution and impacts on both the annual and lifetime limits.
+Note that any withdrawals made cannot be replaced, be it returns or
+capital. - Tax free investment accounts cannot be used as transactional
+accounts. - Debit or stop orders and ATM transactions will not be
+possible from these accounts. - Only new accounts will qualify as the
+idea is to encourage new savings, in other words existing accounts may
+not be converted.
+
+    \hypertarget{assumptions-caveats}{%
+\section{Assumptions \& Caveats}\label{assumptions-caveats}}
+
+    With this kind of analysis, there has to be some assumptions made and
+some limitations in place. These are as follows: - All data generated
+assumes that the lump sum and monthly contributions used, will remain
+the same throughout the entire time horizon of the investment. Of course
+in real life, one might change their monthly contribution or add
+additional lump-sum payments when they have the funds. The fund you
+invest in might also increase your monthly contribution automatically
+each year to keep up with inflation. In this first version of the
+analysis I won't consider these cases but in a future analysis I would
+like to. - We are going to look at investment options that cover 5 risk
+categories namely low, low-medium, medium, medium-high and high. What
+represents these different risk categories is the expected return one
+can receive for the type of investment. I will be using values which
+I've borrowed from https://savetaxfree.co.za. I've also used their
+tax-free investment calculator to ensure the investments I generate are
+100\% accurate. The BIG caveat here is that these are idealised
+investments, i.e.~if a high risk investment gives you an expected return
+of 18\% per year, then you'd get this every year without fail. Of course
+this is completely untrue because real markets fluctuate and you may get
+more or less than this return in any given time period. As the risk goes
+up, so does the risk of not getting that return, so while this analysis
+will be accurate in the potential idealised value one \textbf{could}
+earn, it will be slightly inaccurate in the value one \textbf{will}
+earn. In a future version of this analysis, I would like to inject
+random noise that represents real market fluctuations. - Low-risk =
+Interest-bearing money-market funds yielding 7.21\% - Low-medium risk =
+Multi-asset low equity funds yielding 9.93\% - Medium risk = Multi-asset
+options using average of medium equity and high equity funds yielding
+12.18\% - Medium-high risk = Top 40 equity funds yielding 16.59\% - High
+risk = Small and mid-cap equity funds yielding 18\% - We'll assume that
+interest is compunded monthly at the end of each month. - We'll assume
+that returns will be reinvested into the fund without withdrawal, until
+the maturity date.
+
+    \hypertarget{data-generation-process}{%
+\section{Data Generation Process}\label{data-generation-process}}
+
+    In order to generate real data for this analysis, I first generated
+combinations of investment using: - Time-horizon's that span 1 to 50
+years into the future. - Lump sum's from R0 to R30,000 in R250
+increments. - Monthly contributions from R0 to R,5000 in R50 increments.
+- Risks using the 5 mentioned previously.
+
+Then each possible combination of these options was used to generate a
+future value calculation of the investment.
+
+This led to a total of 3,055,250 investments, however not all of these
+are valid because they may violate either the R33,000 per year limit or
+the R500,000 lifetime contribution limit.
+
+After writing an algorithm that weeded out the invalid investments, we
+are left with 744,425 investments, plenty for us to analyse.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        
+        \PY{n}{time\PYZus{}horizons} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{51}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+        \PY{n}{return\PYZus{}rates} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.0721}\PY{p}{,} \PY{l+m+mf}{0.0993}\PY{p}{,} \PY{l+m+mf}{0.1218}\PY{p}{,} \PY{l+m+mf}{0.1659}\PY{p}{,} \PY{l+m+mf}{0.18}\PY{p}{]}\PY{p}{)}
+        \PY{n}{lump\PYZus{}sums} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{30250}\PY{p}{,} \PY{l+m+mi}{250}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+        \PY{n}{monthly\PYZus{}contribs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{5050}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{lump\PYZus{}sums}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} array([    0,   250,   500,   750,  1000,  1250,  1500,  1750,  2000,
+                2250,  2500,  2750,  3000,  3250,  3500,  3750,  4000,  4250,
+                4500,  4750,  5000,  5250,  5500,  5750,  6000,  6250,  6500,
+                6750,  7000,  7250,  7500,  7750,  8000,  8250,  8500,  8750,
+                9000,  9250,  9500,  9750, 10000, 10250, 10500, 10750, 11000,
+               11250, 11500, 11750, 12000, 12250, 12500, 12750, 13000, 13250,
+               13500, 13750, 14000, 14250, 14500, 14750, 15000, 15250, 15500,
+               15750, 16000, 16250, 16500, 16750, 17000, 17250, 17500, 17750,
+               18000, 18250, 18500, 18750, 19000, 19250, 19500, 19750, 20000,
+               20250, 20500, 20750, 21000, 21250, 21500, 21750, 22000, 22250,
+               22500, 22750, 23000, 23250, 23500, 23750, 24000, 24250, 24500,
+               24750, 25000, 25250, 25500, 25750, 26000, 26250, 26500, 26750,
+               27000, 27250, 27500, 27750, 28000, 28250, 28500, 28750, 29000,
+               29250, 29500, 29750, 30000])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{monthly\PYZus{}contribs}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} array([   0,   50,  100,  150,  200,  250,  300,  350,  400,  450,  500,
+                550,  600,  650,  700,  750,  800,  850,  900,  950, 1000, 1050,
+               1100, 1150, 1200, 1250, 1300, 1350, 1400, 1450, 1500, 1550, 1600,
+               1650, 1700, 1750, 1800, 1850, 1900, 1950, 2000, 2050, 2100, 2150,
+               2200, 2250, 2300, 2350, 2400, 2450, 2500, 2550, 2600, 2650, 2700,
+               2750, 2800, 2850, 2900, 2950, 3000, 3050, 3100, 3150, 3200, 3250,
+               3300, 3350, 3400, 3450, 3500, 3550, 3600, 3650, 3700, 3750, 3800,
+               3850, 3900, 3950, 4000, 4050, 4100, 4150, 4200, 4250, 4300, 4350,
+               4400, 4450, 4500, 4550, 4600, 4650, 4700, 4750, 4800, 4850, 4900,
+               4950, 5000])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} will be used by pandas apply() in order to determine if each investment combo is valid. }
+        \PY{k}{def} \PY{n+nf}{is\PYZus{}valid\PYZus{}investment\PYZus{}params}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+            \PY{n}{time\PYZus{}horizon} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{lump\PYZus{}sum} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{monthly\PYZus{}contrib} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{monthly}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            
+            \PY{n}{periods} \PY{o}{=} \PY{n}{time\PYZus{}horizon} \PY{o}{*} \PY{l+m+mi}{12}
+            
+            \PY{c+c1}{\PYZsh{} not allowed to contribute more than R33,000 per year, so lump sum on its own cannot be greater than this amount.}
+            \PY{k}{if} \PY{n}{lump\PYZus{}sum} \PY{o}{\PYZgt{}} \PY{l+m+mi}{33000}\PY{p}{:}
+                \PY{k}{return} \PY{k+kc}{False}
+            
+            \PY{c+c1}{\PYZsh{} total lifetime contributions cannot be greater than R500,000, so let\PYZsq{}s check that.}
+            \PY{k}{if} \PY{p}{(}\PY{n}{lump\PYZus{}sum} \PY{o}{+} \PY{n}{periods}\PY{o}{*}\PY{n}{monthly\PYZus{}contrib}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{500000}\PY{p}{:}
+                \PY{k}{return} \PY{k+kc}{False}
+        
+            \PY{c+c1}{\PYZsh{} if the contributions in a single year + the lump sum exceed 33,000, reject the investment option.}
+            \PY{n}{yearly\PYZus{}total} \PY{o}{=} \PY{n}{lump\PYZus{}sum}
+            \PY{n}{total} \PY{o}{=} \PY{n}{yearly\PYZus{}total}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{periods}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{n}{yearly\PYZus{}total} \PY{o}{=} \PY{n}{yearly\PYZus{}total} \PY{o}{+} \PY{n}{monthly\PYZus{}contrib}
+                \PY{n}{total} \PY{o}{=} \PY{n}{total} \PY{o}{+} \PY{n}{monthly\PYZus{}contrib}
+                
+                \PY{k}{if} \PY{p}{(}\PY{n}{yearly\PYZus{}total} \PY{o}{\PYZgt{}} \PY{l+m+mi}{33000}\PY{p}{)} \PY{o+ow}{or} \PY{p}{(}\PY{n}{total} \PY{o}{\PYZgt{}} \PY{l+m+mi}{500000}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{return} \PY{k+kc}{False}
+                
+                \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{12} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                    \PY{n}{yearly\PYZus{}total} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{return} \PY{k+kc}{True}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} numpy meshgrid allows us to create a matrix of all combinations of our input arrays}
+        \PY{n}{investment\PYZus{}options} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{time\PYZus{}horizons}\PY{p}{,} \PY{n}{return\PYZus{}rates}\PY{p}{,} \PY{n}{lump\PYZus{}sums}\PY{p}{,} \PY{n}{monthly\PYZus{}contribs}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+        
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{investment\PYZus{}options}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{monthly}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{horizon} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{horizon}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{int64}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{lump\PYZus{}sum} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{lump\PYZus{}sum}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{int64}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{monthly} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{monthly}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{int64}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{assign\PYZus{}risk}\PY{p}{(}\PY{n}{col}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{col} \PY{o}{==} \PY{l+m+mf}{0.0721}\PY{p}{:} \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{low}\PY{l+s+s1}{\PYZsq{}}
+            \PY{k}{if} \PY{n}{col} \PY{o}{==} \PY{l+m+mf}{0.0993}\PY{p}{:} \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{low\PYZhy{}medium}\PY{l+s+s1}{\PYZsq{}}
+            \PY{k}{if} \PY{n}{col} \PY{o}{==} \PY{l+m+mf}{0.1218}\PY{p}{:} \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{medium}\PY{l+s+s1}{\PYZsq{}}
+            \PY{k}{if} \PY{n}{col} \PY{o}{==} \PY{l+m+mf}{0.1659}\PY{p}{:} \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{medium\PYZhy{}high}\PY{l+s+s1}{\PYZsq{}}
+            \PY{k}{if} \PY{n}{col} \PY{o}{==} \PY{l+m+mf}{0.18}\PY{p}{:} \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}
+            
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{risk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{assign\PYZus{}risk}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 3055250 entries, 0 to 3055249
+Data columns (total 5 columns):
+horizon     int64
+rate        float64
+lump\_sum    int64
+monthly     int64
+risk        object
+dtypes: float64(1), int64(3), object(1)
+memory usage: 116.5+ MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} adding column which indicates whether this combo of params is a valid tax\PYZhy{}free investment}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{valid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{is\PYZus{}valid\PYZus{}investment\PYZus{}params}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}   
+        
+        \PY{c+c1}{\PYZsh{} calculaing the future value using numpy fv() }
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fv}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{nper}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{pmt}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{monthly}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{pv}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{when}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}    horizon    rate  lump\_sum  monthly risk  valid       fv
+        0        1  0.0721         0        0  low   True    -0.00
+        1        1  0.0721         0       50  low   True   620.23
+        2        1  0.0721         0      100  low   True  1240.46
+        3        1  0.0721         0      150  low   True  1860.69
+        4        1  0.0721         0      200  low   True  2480.92
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} we want a categorical variable defining ranges of investment horizon}
+         \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2 Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{5 Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{10 Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{15 Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{20 Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{30 Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{40 Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{50 Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{bins} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{]}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizon\PYZus{}cat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{horizon}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{labels}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{horizon\PYZus{}cat}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{horizon\PYZus{}cat}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 50 Years    611050
+         40 Years    611050
+         30 Years    611050
+         20 Years    305525
+         15 Years    305525
+         10 Years    305525
+         5 Years     183315
+         2 Years     122210
+         Name: horizon\_cat, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} we want a categorical variable defining ranges of lump sum. Here we are creating roughly equal size buckets using qcut()}
+         \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{0\PYZhy{}R5K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R5K\PYZhy{}R10K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R10K\PYZhy{}R15K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R15K\PYZhy{}20K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R20K\PYZhy{}R25K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R25K\PYZhy{}R30K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum\PYZus{}cat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{qcut}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{lump\PYZus{}sum}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{labels}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{lump\PYZus{}sum\PYZus{}cat}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{lump\PYZus{}sum\PYZus{}cat}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 0-R5K        530250
+         R25K-R30K    505000
+         R20K-R25K    505000
+         R15K-20K     505000
+         R10K-R15K    505000
+         R5K-R10K     505000
+         Name: lump\_sum\_cat, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} we want a categorical variable defining ranges of monthly contributions. Here we are creating roughly equal size buckets using qcut()}
+         \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{0\PYZhy{}R500}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R500\PYZhy{}R1K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R1K\PYZhy{}R1.5K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R1.5K\PYZhy{}R2K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R2K\PYZhy{}R2.5K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R2.5K\PYZhy{}R3K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R3K\PYZhy{}R3.5K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R3.5K\PYZhy{}R4K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R4.5K\PYZhy{}R5K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{monthly\PYZus{}cat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{qcut}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{monthly}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{labels}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{monthly\PYZus{}cat}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{monthly\PYZus{}cat}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} R2K-R2.5K    363000
+         0-R500       363000
+         R4.5K-R5K    332750
+         R3.5K-R4K    332750
+         R3K-R3.5K    332750
+         R2.5K-R3K    332750
+         R1.5K-R2K    332750
+         R1K-R1.5K    332750
+         R500-R1K     332750
+         Name: monthly\_cat, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} reordering columns}
+         \PY{n}{cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizon\PYZus{}cat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum\PYZus{}cat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{monthly}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{monthly\PYZus{}cat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{risk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{valid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{df}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{data\PYZus{}invalid} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{valid}\PY{o}{==}\PY{k+kc}{False}\PY{p}{]}
+         \PY{n}{data} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{valid}\PY{o}{==}\PY{k+kc}{True}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{data\PYZus{}invalid}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(2310825, 10) (744425, 10)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{valid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{data}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}          horizon horizon\_cat  lump\_sum lump\_sum\_cat  monthly monthly\_cat  \textbackslash{}
+         2268870       36    40 Years     19750     R15K-20K      300      0-R500   
+         747110        12    15 Years      4000        0-R5K      650    R500-R1K   
+         2489365        4     5 Years     21000    R20K-R25K      900    R500-R1K   
+         1954660       10    10 Years     28500    R25K-R30K      350      0-R500   
+         158072        13    15 Years     28250    R25K-R30K      350      0-R500   
+         1512478       24    30 Years     23000    R20K-R25K      150      0-R500   
+         2534809        8    10 Years     12500    R10K-R15K      600    R500-R1K   
+         2375319       45    50 Years     11000    R10K-R15K       50      0-R500   
+         399969        33    40 Years     22000    R20K-R25K      450      0-R500   
+         496635        41    50 Years     19250     R15K-20K      900    R500-R1K   
+         
+                    rate         risk           fv  
+         2268870  0.1659  medium-high  15593122.72  
+         747110   0.0993   low-medium    191903.37  
+         2489365  0.1800         high    105521.74  
+         1954660  0.1659  medium-high    254243.30  
+         158072   0.0721          low    161976.57  
+         1512478  0.1218       medium    677646.67  
+         2534809  0.1800         high    179229.68  
+         2375319  0.1659  medium-high  24254968.26  
+         399969   0.0721          low    963901.13  
+         496635   0.0721          low   3071061.78  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} exporing only the valid investment options, hence why we also dropped the \PYZsq{}valid\PYZsq{} column}
+         \PY{n}{data}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{taxfree\PYZus{}investment\PYZus{}options.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{setup-for-plots}{%
+\section{Setup for Plots}\label{setup-for-plots}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{ticker} \PY{k}{import} \PY{n}{FuncFormatter}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fivethirtyeight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{16}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xtick.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{12}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ytick.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{12}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.titlesize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{20}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.dpi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{400}
+         
+         \PY{c+c1}{\PYZsh{} if less than R1K, show as R800 (for eg). If btw R1000 and R999,999, show as R1K or R999K. If R1,000,000 or greater, show as R1M}
+         \PY{k}{def} \PY{n+nf}{currency\PYZus{}formatter}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{pos}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{1000000}\PY{p}{:}
+                 \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R}\PY{l+s+si}{\PYZpc{}1.1f}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{x} \PY{o}{*} \PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1000}\PY{p}{:}
+                 \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R}\PY{l+s+si}{\PYZpc{}1.1d}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R}\PY{l+s+si}{\PYZpc{}1.1d}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{x} \PY{o}{*} \PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{)} 
+             
+         \PY{n}{axes\PYZus{}formatter} \PY{o}{=} \PY{n}{FuncFormatter}\PY{p}{(}\PY{n}{currency\PYZus{}formatter}\PY{p}{)} 
+         
+         \PY{k+kn}{import} \PY{n+nn}{os}
+         \PY{c+c1}{\PYZsh{} Where to save the figures}
+         \PY{n}{PROJECT\PYZus{}ROOT\PYZus{}DIR} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{IMAGES\PYZus{}PATH} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{PROJECT\PYZus{}ROOT\PYZus{}DIR}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{images}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{def} \PY{n+nf}{save\PYZus{}fig}\PY{p}{(}\PY{n}{fig\PYZus{}id}\PY{p}{,} \PY{n}{tight\PYZus{}layout}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{fig\PYZus{}extension}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{resolution}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isdir}\PY{p}{(}\PY{n}{IMAGES\PYZus{}PATH}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{os}\PY{o}{.}\PY{n}{makedirs}\PY{p}{(}\PY{n}{IMAGES\PYZus{}PATH}\PY{p}{)}
+             \PY{n}{path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{IMAGES\PYZus{}PATH}\PY{p}{,} \PY{n}{fig\PYZus{}id} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{fig\PYZus{}extension}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Saving figure}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fig\PYZus{}id}\PY{p}{)}
+             \PY{k}{if} \PY{n}{tight\PYZus{}layout}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=}\PY{n}{fig\PYZus{}extension}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{n}{resolution}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{how-does-time-horizon-risk-lump-sum-and-monthly-contributions-affect-our-investment}{%
+\section{How Does Time Horizon, Risk, Lump Sum and Monthly Contributions
+Affect Our
+Investment?}\label{how-does-time-horizon-risk-lump-sum-and-monthly-contributions-affect-our-investment}}
+
+    For this example, let's assume we do not have enough money to contribute
+a lump sum, but we can afford to pay R500 per month into a medium-risk
+investment account. What effect does the number of years we stay
+invested make on our eventual outcome?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{)}
+         \PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{500}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{lump\PYZus{}sum}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Investment Value over 50 Years with No Lump Sum, Medium Risk \PYZam{} R500 Per Month Contribution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{axes\PYZus{}formatter}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{save\PYZus{}fig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{investment\PYZhy{}50\PYZhy{}years\PYZhy{}no\PYZhy{}lump\PYZhy{}sum\PYZhy{}500\PYZhy{}monthly\PYZhy{}medium\PYZhy{}risk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Saving figure investment-50-years-no-lump-sum-500-monthly-medium-risk
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    This graph clearly shows us not just the value of compound interest, but
+the value of compound interest over time. Even with no lump sum, if we
+are patient and keep all our money in the fund, ove the course of a
+lifetime, we can make a substantial amount of money. As we mentioned up
+front, the big caveat here is these values are idealised and in
+real-life, they would be subject ot market fluctuations meaning we
+wouldn't get a perfect 12.18\% return each year and due to inflation the
+value of the money in 50 years time is not the same as it is today,
+however, it still paints a very clear picture that starting to invest as
+early as possible \textbf{really} does matter.
+
+When I look at this graph, it makes me sad that I didn't start saving
+much earlier in life. We're going to unpack this is much more detail as
+we move through the analysis.
+
+Let's build on this a little by comparing how different risk categories
+affect the outcome. We'll stick with the same example of zero lump sum
+and R500 per month contributions. We'll also zoom in on the 0 - 30 year
+period.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{risk\PYZus{}labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{)}
+         \PY{n}{df} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{500}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{lump\PYZus{}sum}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{horizon} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{30}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{high}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{risk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{reindex}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{high}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Investment Value over 30 Years with No Lump Sum \PYZam{} R500 Per Month Contribution \PYZhy{} All Risks}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{axes\PYZus{}formatter}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Risk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{risk\PYZus{}labels}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{save\PYZus{}fig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{investment\PYZhy{}30\PYZhy{}years\PYZhy{}no\PYZhy{}lump\PYZhy{}sum\PYZhy{}500\PYZhy{}monthly\PYZhy{}all\PYZhy{}risks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Saving figure investment-30-years-no-lump-sum-500-monthly-all-risks
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Clearly, the rate of return given by the risk of the investment matters.
+Does this mean you should just go straight for a high risk investment?
+Of course not. By it's very nature, it is \textbf{high} risk and however
+inviting these number might look, you probably won't get them. In fact,
+one must remember that even low-risk still carries risk. Another global
+recession can wipe out a hefty chunk of your investment so as the saying
+goes, don't put all your eggs in one basket. Of course, this is the idea
+with the lower risk investments, they aim to be more balanced, more
+immune to large scale financial crises that can affect whoel segements
+of the market.
+
+Let's go a bit deeper. How does the monthly contribution and lump sum
+contribute to our investment. This time we're going to assume a few
+different combinations, specifically time horizon's of 2, 5, 10 and 20
+years; monthly contributions of R250, R500, and R1000 per month and lump
+sums of R0, R1,000, R5,000, R10,000 and R20,000. Initially let's stick
+with the medium risk category.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{horizons} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{]}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{ax}\PY{p}{,} \PY{n}{horizon} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{horizons}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{axes\PYZus{}formatter}\PY{p}{)}
+             \PY{n}{df} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly} \PY{o}{==} \PY{l+m+mi}{250}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly} \PY{o}{==} \PY{l+m+mi}{500}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly} \PY{o}{==} \PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{lump\PYZus{}sum}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{lump\PYZus{}sum}\PY{o}{==}\PY{l+m+mi}{1000}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{lump\PYZus{}sum}\PY{o}{==}\PY{l+m+mi}{5000}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{lump\PYZus{}sum}\PY{o}{==}\PY{l+m+mi}{10000}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{lump\PYZus{}sum}\PY{o}{==}\PY{l+m+mi}{20000}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{horizon} \PY{o}{==} \PY{n}{horizon}\PY{p}{)}\PY{p}{]}
+             \PY{n}{df}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{monthly}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Investment after }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{horizon}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ years \PYZhy{} Medium Risk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Monthly Contribution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lump Sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R1,000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R5,000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R10,000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R20,000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{labelrotation}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R250}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R500}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R1,000}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{save\PYZus{}fig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{investment\PYZhy{}multiple\PYZhy{}years\PYZhy{}risks\PYZhy{}lump\PYZhy{}sum\PYZhy{}monthly\PYZhy{}contrib}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Saving figure investment-multiple-years-risks-lump-sum-monthly-contrib
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    While it's clear that monthly contribution and time horizon matters,
+it's perhaps less clear how much the initial lump sum matters. While the
+values do get bigger by starting the fund off with something rather than
+nothing, one might have to save for some time to obtain a lump sum in
+the first place and thereby reduce the amount of time their money is in
+a fund, so therefore, should you start with no lump sum and bigger
+monthly contributions or a large lump sum and smaller monthly
+contributions?
+
+Let's investigate by comparing an investment of R250 per month and a
+lump sum in the region of R25K - R30K with an investment of R500 per
+month and a lump sum in the region of R0 - R5K. We'll use a medium risk
+and time horizon of 30 years.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{mean\PYZus{}250pm\PYZus{}big\PYZus{}lump} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{250}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{horizon}\PY{o}{==}\PY{l+m+mi}{30}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{lump\PYZus{}sum\PYZus{}cat}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R25K\PYZhy{}R30K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{contrib\PYZus{}250pm\PYZus{}big\PYZus{}lump} \PY{o}{=} \PY{l+m+mi}{250}\PY{o}{*}\PY{l+m+mi}{30}\PY{o}{*}\PY{l+m+mi}{12}
+         \PY{n}{mean\PYZus{}big\PYZus{}lump} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{250}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{horizon}\PY{o}{==}\PY{l+m+mi}{30}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{lump\PYZus{}sum\PYZus{}cat}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R25K\PYZhy{}R30K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{mean\PYZus{}500pm\PYZus{}small\PYZus{}lump} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{500}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{horizon}\PY{o}{==}\PY{l+m+mi}{30}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{lump\PYZus{}sum\PYZus{}cat}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{0\PYZhy{}R5K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{contrib\PYZus{}500pm\PYZus{}small\PYZus{}lump} \PY{o}{=} \PY{l+m+mi}{500}\PY{o}{*}\PY{l+m+mi}{30}\PY{o}{*}\PY{l+m+mi}{12}
+         \PY{n}{mean\PYZus{}small\PYZus{}lump} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{500}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{horizon}\PY{o}{==}\PY{l+m+mi}{30}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{lump\PYZus{}sum\PYZus{}cat}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{0\PYZhy{}R5K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Investment Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{mean\PYZus{}250pm\PYZus{}big\PYZus{}lump}\PY{p}{,} \PY{n}{mean\PYZus{}500pm\PYZus{}small\PYZus{}lump}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Monthly Contrib}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Monthly Contrib. Over 30 Years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{contrib\PYZus{}250pm\PYZus{}big\PYZus{}lump}\PY{p}{,} \PY{n}{contrib\PYZus{}500pm\PYZus{}small\PYZus{}lump}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lump Sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{mean\PYZus{}big\PYZus{}lump}\PY{p}{,} \PY{n}{mean\PYZus{}small\PYZus{}lump}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}79}]:}    Investment Value  Monthly Contrib  Total Monthly Contrib. Over 30 Years  \textbackslash{}
+         0           1957101              250                                 90000   
+         1           1913719              500                                180000   
+         
+            Lump Sum  
+         0     27625  
+         1      2500  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total Invested (Total Monthly + Lump Sum)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total Monthly Contrib. Over 30 Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{+} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lump Sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}80}]:}    Investment Value  Monthly Contrib  Total Monthly Contrib. Over 30 Years  \textbackslash{}
+         0           1957101              250                                 90000   
+         1           1913719              500                                180000   
+         
+            Lump Sum  Total Invested (Total Monthly + Lump Sum)  
+         0     27625                                     117625  
+         1      2500                                     182500  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Extra Cash on Hand Over 30 Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{500}\PY{o}{*}\PY{l+m+mi}{30}\PY{o}{*}\PY{l+m+mi}{12} \PY{o}{\PYZhy{}} \PY{l+m+mi}{250}\PY{o}{*}\PY{l+m+mi}{30}\PY{o}{*}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lump Sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Extra Cash on Hand Over 30 Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}81}]:}    Investment Value  Monthly Contrib  Total Monthly Contrib. Over 30 Years  \textbackslash{}
+         0           1957101              250                                 90000   
+         1           1913719              500                                180000   
+         
+            Lump Sum  Total Invested (Total Monthly + Lump Sum)  \textbackslash{}
+         0     27625                                     117625   
+         1      2500                                     182500   
+         
+            Extra Cash on Hand Over 30 Years  
+         0                             62375  
+         1                                 0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{n}{cols\PYZus{}index} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Monthly Contrib}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lump Sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total Monthly Contrib. Over 30 Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total Invested (Total Monthly + Lump Sum)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Investment Value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Extra Cash on Hand Over 30 Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{cols\PYZus{}to\PYZus{}show} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lump Sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total Monthly Contrib. Over 30 Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total Invested (Total Monthly + Lump Sum)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Investment Value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Extra Cash on Hand Over 30 Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{reindex}\PY{p}{(}\PY{n}{cols\PYZus{}index}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{n}{cols\PYZus{}to\PYZus{}show}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{logy}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R250 per month}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{R25\PYZhy{}R30K Lump Sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R500 per month}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{R0\PYZhy{}R5K Lump Sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{axes\PYZus{}formatter}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Comparing No Lump Sum \PYZam{} R500 Per Month with R25K\PYZhy{}R30K Lump Sum \PYZam{} R250 Per Month}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{save\PYZus{}fig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comparing\PYZhy{}large\PYZhy{}lump\PYZhy{}small\PYZhy{}monthly\PYZhy{}small\PYZhy{}lump\PYZhy{}large\PYZhy{}monthly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Saving figure comparing-large-lump-small-monthly-small-lump-large-monthly
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The reason for the extra cash on hand value in the first case is that we
+pay R250 less per month. This values also subtracts the initial deposit
+we paid.
+
+This graph tells us that if we have a lump sum readily available, then
+even if we contribute less per month, we end up with similar investment
+value, but we put less money into the fund over 30 years and we have
+around R70K extra cash that we didn't spend in the form of monthly
+contributions. Hence, if you can afford to, it pays to have a sizeable
+lump sum.
+
+There is a caveat here. If you don't have a lump sum available, should
+you save for it first before investing? No, rather start investing with
+what you have right away. As we showed earlier, the power of compound
+interest over the long term is far more profound than having an initial
+lump sum so rather let your earnings start to compound as soon as
+possible.
+
+In all the previous examples, we assumed a medium risk category, let's
+see what happens when we change the risk.
+
+We'll do this two ways: first we'll assume a lump sum of R0, then we'll
+assume a lump sum of R10,000.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+          
+          \PY{n}{horizons} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{)}
+          \PY{n}{risks} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{high}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{risks\PYZus{}label} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{ax}\PY{p}{,} \PY{n}{risk}\PY{p}{,} \PY{n}{risk\PYZus{}label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{risks}\PY{p}{,} \PY{n}{risks\PYZus{}label}\PY{p}{)}\PY{p}{:}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{axes\PYZus{}formatter}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{axes\PYZus{}formatter}\PY{p}{)}
+              
+              \PY{k}{for} \PY{n}{horizon} \PY{o+ow}{in} \PY{n}{horizons}\PY{p}{:}
+                  \PY{n}{df} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{horizon}\PY{o}{==}\PY{n}{horizon}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{lump\PYZus{}sum}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk}\PY{o}{==}\PY{n}{risk}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{]}    
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{monthly}\PY{p}{,} \PY{n}{df}\PY{o}{.}\PY{n}{fv}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n+nb}{str}\PY{p}{(}\PY{n}{horizon}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}        
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Investment Value \PYZhy{} }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{risk\PYZus{}label} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Risk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Monthly Contribution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{labelrotation}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lump Sum = R0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                               \PY{n}{xy}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{8500000}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{xytext}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{8500000}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}            
+                               \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+          \PY{n}{save\PYZus{}fig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comparing\PYZhy{}earnings\PYZhy{}across\PYZhy{}risks\PYZhy{}no\PYZhy{}lump\PYZhy{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Saving figure comparing-earnings-across-risks-no-lump-sum
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Ah that high risk curve is a thing of beauty! If only it was guarenteed.
+
+It's clear that risk does matter, the greater the risk, the greater the
+reward. Perhaps, as it's often suggested, one can start with higher risk
+options in their younger years and move down the risk categories as you
+get older.
+
+If we look at a few specific points, we can see that on a medium risk
+product, we'd need to contribute R1,000 per month over 30 years to
+obtain the same value as R600 per month over 25 years on a high risk
+product. However that difference between 25 and 30 years on the
+high-risk product, redarless of how much you contribute per month, is
+really striking due to the long term effect of compound interest.
+
+Let's plot the same graph but using R10,000 as a lump sum value.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+          
+          \PY{n}{horizons} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{)}
+          \PY{n}{risks} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{high}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{risks\PYZus{}label} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{ax}\PY{p}{,} \PY{n}{risk}\PY{p}{,} \PY{n}{risk\PYZus{}label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{risks}\PY{p}{,} \PY{n}{risks\PYZus{}label}\PY{p}{)}\PY{p}{:}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{axes\PYZus{}formatter}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{axes\PYZus{}formatter}\PY{p}{)}
+              
+              \PY{k}{for} \PY{n}{horizon} \PY{o+ow}{in} \PY{n}{horizons}\PY{p}{:}
+                  \PY{n}{df} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{horizon}\PY{o}{==}\PY{n}{horizon}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{lump\PYZus{}sum}\PY{o}{==}\PY{l+m+mi}{10000}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk}\PY{o}{==}\PY{n}{risk}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{]}    
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{monthly}\PY{p}{,} \PY{n}{df}\PY{o}{.}\PY{n}{fv}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n+nb}{str}\PY{p}{(}\PY{n}{horizon}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}        
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Investment Value \PYZhy{} }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{risk\PYZus{}label} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Risk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Monthly Contribution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{labelrotation}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lump Sum = R10,000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                               \PY{n}{xy}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{11500000}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{xytext}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{11500000}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}            
+                               \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+          \PY{n}{save\PYZus{}fig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comparing\PYZhy{}earnings\PYZhy{}across\PYZhy{}risks\PYZhy{}10k\PYZhy{}lump\PYZhy{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Saving figure comparing-earnings-across-risks-10k-lump-sum
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    A difference, yes, but not a massive one. Again, we should rather start
+saving now than waiting to have a lump sum; it doesn't matter nearly as
+much as the years invested and how much you can contribute monthly.
+Before we put this all together, I'd like to visualise these parameters
+in one more way.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{)}
+          \PY{n}{width}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figaspect}\PY{p}{(}\PY{l+m+mf}{1.68}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{n}{width}\PY{p}{,} \PY{n}{height}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+          
+          \PY{n}{df} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{horizon}\PY{o}{==}\PY{l+m+mi}{15}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{100}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{250}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{500}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{1000}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{1500}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{swarmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{monthly}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum\PYZus{}cat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{axes\PYZus{}formatter}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Monthly Contribution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R100}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R250}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R500}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R1,000}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R1,500}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Investment Value at 15 Years \PYZhy{} All Risks}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{ax}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{low risk investment, big lump sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                       \PY{c+c1}{\PYZsh{}xy=(550, 400000),}
+                       \PY{c+c1}{\PYZsh{}xytext=(600, 150000),}
+                       \PY{n}{xy}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{2.15}\PY{p}{,} \PY{l+m+mi}{340000}\PY{p}{)}\PY{p}{,}
+                       \PY{n}{xytext}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{4.15}\PY{p}{,} \PY{l+m+mi}{50000}\PY{p}{)}\PY{p}{,}
+                       \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                       \PY{n}{arrowprops}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}\PY{p}{,}
+                       \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}
+                      \PY{p}{)}
+          
+          \PY{n}{ax}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high risk investment, big lump sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                       \PY{c+c1}{\PYZsh{}xy=(550, 400000),}
+                       \PY{c+c1}{\PYZsh{}xytext=(600, 150000),}
+                       \PY{n}{xy}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{840000}\PY{p}{)}\PY{p}{,}
+                       \PY{n}{xytext}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{l+m+mi}{1300000}\PY{p}{)}\PY{p}{,}
+                       \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                       \PY{n}{arrowprops}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}\PY{p}{,}
+                       \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}
+                      \PY{p}{)}
+          
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lump Sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.05}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{borderaxespad}\PY{o}{=}\PY{l+m+mf}{0.}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}save\PYZus{}fig(\PYZsq{}value\PYZhy{}15\PYZhy{}years\PYZhy{}all\PYZhy{}risks\PYZsq{})}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}107}]:} <matplotlib.legend.Legend at 0x1ad0e153978>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    What we're looking at is all the possible investment combinations for
+different risks bracketed by lump sum ranges and monthly contributions.
+The reason there are, for example, purple dots spread across the R500
+section is because the ones nearer to the bottom are lower risk
+investments while the ones nearer to the top are higher risk
+investments. We know this because theoretically high risk investment
+give us greater return than lower risk investments.
+
+This graph is just a reminder that when you choose an investment
+product, one should get a clear understanding of the risk involved as
+this will make a big difference in your returns even for the same
+monthly contribution and same lump sum.
+
+    \hypertarget{putting-it-all-together}{%
+\section{Putting It All Together}\label{putting-it-all-together}}
+
+    What you've probably been waiting for is something that puts all this
+together and show's you much time it will take to save different amounts
+given all risk options, all lump sum options and all monthly
+contribution options.
+
+First let's see our options for saving R250K.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{risks} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{high}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{risk\PYZus{}labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{width}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figaspect}\PY{p}{(}\PY{l+m+mf}{1.68}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{n}{width}\PY{p}{,} \PY{n}{height}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{ax}\PY{p}{,} \PY{n}{risk}\PY{p}{,} \PY{n}{risk\PYZus{}label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{risks}\PY{p}{,} \PY{n}{risk\PYZus{}labels}\PY{p}{)}\PY{p}{:}
+              \PY{n}{df} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk}\PY{o}{==}\PY{n}{risk}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{fv}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{250000}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{fv}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{275000}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{250}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{500}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{750}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+              \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{stripplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{monthly}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum\PYZus{}cat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+              
+              \PY{k}{if} \PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}        
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              
+              \PY{k}{if} \PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Monthly Contrib}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{labelrotation}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R250}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R500}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R750}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R1K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{risk\PYZus{}label} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Risk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{pad}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fontdict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fontsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{)}
+              \PY{n}{handles}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}legend\PYZus{}handles\PYZus{}labels}\PY{p}{(}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+              
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Options for Saving R250K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.05}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{borderaxespad}\PY{o}{=}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lump Sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}save\PYZus{}fig(\PYZsq{}options\PYZhy{}saving\PYZhy{}250k\PYZsq{})}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}110}]:} <matplotlib.legend.Legend at 0x1ad05000ac8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{n}{risks} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{high}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{risk\PYZus{}labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{width}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figaspect}\PY{p}{(}\PY{l+m+mf}{1.68}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{n}{width}\PY{p}{,} \PY{n}{height}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{ax}\PY{p}{,} \PY{n}{risk}\PY{p}{,} \PY{n}{risk\PYZus{}label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{risks}\PY{p}{,} \PY{n}{risk\PYZus{}labels}\PY{p}{)}\PY{p}{:}
+              \PY{n}{df} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk}\PY{o}{==}\PY{n}{risk}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{fv}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{500000}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{fv}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{550000}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{250}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{500}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{750}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+              \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{stripplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{monthly}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum\PYZus{}cat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+              
+              
+              \PY{k}{if} \PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} 
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              
+              \PY{k}{if} \PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Monthly Contrib}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{labelrotation}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R250}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R500}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R750}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R1K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{risk\PYZus{}label} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Risk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{pad}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fontdict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fontsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{)}
+              \PY{n}{handles}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}legend\PYZus{}handles\PYZus{}labels}\PY{p}{(}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+              
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Options for Saving R500K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.05}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{borderaxespad}\PY{o}{=}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lump Sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}111}]:} <matplotlib.legend.Legend at 0x1ad03a75470>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{n}{risks} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{high}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{risk\PYZus{}labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{width}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figaspect}\PY{p}{(}\PY{l+m+mf}{1.68}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{n}{width}\PY{p}{,} \PY{n}{height}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{ax}\PY{p}{,} \PY{n}{risk}\PY{p}{,} \PY{n}{risk\PYZus{}label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{risks}\PY{p}{,} \PY{n}{risk\PYZus{}labels}\PY{p}{)}\PY{p}{:}
+              \PY{n}{df} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk}\PY{o}{==}\PY{n}{risk}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{fv}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{1000000}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{fv}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{1100000}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{250}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{500}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{750}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+              \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{stripplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{monthly}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum\PYZus{}cat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+              
+              
+              \PY{k}{if} \PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}        
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              
+              \PY{k}{if} \PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Monthly Contrib}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{labelrotation}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R250}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R500}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R750}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R1K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{risk\PYZus{}label} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Risk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{pad}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fontdict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fontsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{)}
+              \PY{n}{handles}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}legend\PYZus{}handles\PYZus{}labels}\PY{p}{(}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+              
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Options for Saving R1M}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.05}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{borderaxespad}\PY{o}{=}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lump Sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}112}]:} <matplotlib.legend.Legend at 0x1ad05682400>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{n}{risks} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{high}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{risk\PYZus{}labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{width}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figaspect}\PY{p}{(}\PY{l+m+mf}{1.68}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{n}{width}\PY{p}{,} \PY{n}{height}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{ax}\PY{p}{,} \PY{n}{risk}\PY{p}{,} \PY{n}{risk\PYZus{}label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{risks}\PY{p}{,} \PY{n}{risk\PYZus{}labels}\PY{p}{)}\PY{p}{:}
+              \PY{n}{df} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk}\PY{o}{==}\PY{n}{risk}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{fv}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{2000000}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{fv}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{2100000}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{250}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{500}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{750}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+              \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{stripplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{monthly}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum\PYZus{}cat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+              
+              
+              \PY{k}{if} \PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}        
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              
+              \PY{k}{if} \PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Monthly Contrib}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{labelrotation}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R250}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R500}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R750}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R1K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{risk\PYZus{}label} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Risk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{pad}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fontdict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fontsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{)}
+              \PY{n}{handles}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}legend\PYZus{}handles\PYZus{}labels}\PY{p}{(}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+              
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Options for Saving R2M}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.05}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{borderaxespad}\PY{o}{=}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lump Sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}113}]:} <matplotlib.legend.Legend at 0x1ad05647898>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{n}{risks} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{high}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{risk\PYZus{}labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{width}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figaspect}\PY{p}{(}\PY{l+m+mf}{1.68}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{n}{width}\PY{p}{,} \PY{n}{height}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{ax}\PY{p}{,} \PY{n}{risk}\PY{p}{,} \PY{n}{risk\PYZus{}label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{risks}\PY{p}{,} \PY{n}{risk\PYZus{}labels}\PY{p}{)}\PY{p}{:}
+              \PY{n}{df} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk}\PY{o}{==}\PY{n}{risk}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{fv}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{5000000}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{fv}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{5100000}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{250}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{500}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{750}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+              \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{stripplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{monthly}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum\PYZus{}cat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+              
+              
+              \PY{k}{if} \PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}        
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              
+              \PY{k}{if} \PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Monthly Contrib}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{labelrotation}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R250}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R500}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R750}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R1K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{risk\PYZus{}label} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Risk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{pad}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fontdict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fontsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{)} 
+              \PY{n}{handles}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}legend\PYZus{}handles\PYZus{}labels}\PY{p}{(}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+              
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Options for Saving R5M}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.05}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{borderaxespad}\PY{o}{=}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lump Sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}114}]:} <matplotlib.legend.Legend at 0x1ad31441080>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{n}{risks} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{high}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{risk\PYZus{}labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{width}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figaspect}\PY{p}{(}\PY{l+m+mf}{1.68}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{n}{width}\PY{p}{,} \PY{n}{height}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{ax}\PY{p}{,} \PY{n}{risk}\PY{p}{,} \PY{n}{risk\PYZus{}label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{risks}\PY{p}{,} \PY{n}{risk\PYZus{}labels}\PY{p}{)}\PY{p}{:}
+              \PY{n}{df} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{risk}\PY{o}{==}\PY{n}{risk}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{fv}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{10000000}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{fv}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{10100000}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{250}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{500}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{750}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{monthly}\PY{o}{==}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+              \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{stripplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{monthly}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{horizon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lump\PYZus{}sum\PYZus{}cat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+              
+              
+              \PY{k}{if} \PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}        
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              
+              \PY{k}{if} \PY{n}{risk} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{medium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Monthly Contrib}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{labelrotation}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R250}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R500}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R750}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R1K}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{risk\PYZus{}label} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Risk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{pad}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fontdict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fontsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{)} 
+              \PY{n}{handles}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}legend\PYZus{}handles\PYZus{}labels}\PY{p}{(}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+              
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Options for Saving R10M}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.05}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{borderaxespad}\PY{o}{=}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lump Sum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}doron\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}axes\textbackslash{}\_base.py:3124: UserWarning: Attempting to set identical left==right results
+in singular transformations; automatically expanding.
+left=-0.5, right=-0.5
+  'left=\%s, right=\%s') \% (left, right))
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}115}]:} <matplotlib.legend.Legend at 0x1ad0dfff550>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{summary-next-steps}{%
+\section{Summary \& Next Steps}\label{summary-next-steps}}
+
+It's clear that making use of a tax-free investment product is a smart
+thing to do. It's also clear that mow much you contribute into the fund
+per month, the amount of time you leave your money in the fund and which
+risk category you choose makes a substantial difference to your final
+investment amount. If you can afford to put a lump sum down, certainly
+do so, but it's the least important factor in the investment so rather
+start saving as soon as possible as time horizon is what matters most.
+
+As mentioned in the initial assumptions, this analysis has some
+limitations and in future versions I'd like to do the following: - Take
+investment fees into account. - Simulate putting extra money into
+investment in random months/years. - Simulate changing the monthly
+contribution at various points through the time horizon. - Simulate the
+market going up and down, i.e.~not getting the expected return on
+investment.
+
+I hope this analysis has been useful. Please do let me know areas it can
+be made clearer and ideas for how it can be extended.
+
+You can download a pdf report of the essential visualisations
+\href{}{here}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
